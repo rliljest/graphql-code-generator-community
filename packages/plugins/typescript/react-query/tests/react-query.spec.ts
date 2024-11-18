@@ -988,6 +988,19 @@ describe('React-Query', () => {
     });
   });
 
+  describe('exposeQueryOptions: true', () => {
+    it('Should generate getOptions for each query', async () => {
+      const config = {
+        fetcher: 'fetch',
+        exposeQueryOptions: true,
+        exposeFetcher: true
+      };
+      const out = (await plugin(schema, docs, config)) as Types.ComplexPluginOutput;
+      expect(out.content).toMatchSnapshot();
+      expect(out.content).toBeSimilarStringTo(`useTestQuery.getOptions = (variables?: TestQueryVariables) => ({ queryKey:`);
+    })
+  })
+
   describe('exposeQueryRootKeys: true', () => {
     it('Should generate rootKey for each query', async () => {
       const config = {

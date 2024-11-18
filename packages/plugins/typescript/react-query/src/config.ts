@@ -51,6 +51,19 @@ export interface BaseReactQueryPluginConfig {
 
   /**
    * @default false
+   * @description For each generate query hook adds options. Useful when dealing
+   * with the queryClient cache directly. Requires react-query v5 or newer.
+   * @exampleMarkdown
+   * ```ts
+   * const query = useUserDetailsQuery(...)
+   * const cachedData = queryClient.getQueryData(useUserDetailsQuery.options().queryKey)
+   * // cachedData automatically has correct type, undefined | UserDetailsQuery
+   * ```
+   */
+  exposeQueryOptions?: boolean;
+
+  /**
+   * @default false
    * @description For each generate mutation hook adds getKey() function. Useful for call outside of functional component.
    * @exampleMarkdown
    * ```ts

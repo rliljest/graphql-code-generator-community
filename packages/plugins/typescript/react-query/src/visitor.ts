@@ -40,6 +40,7 @@ export class ReactQueryVisitor extends ClientSideBaseVisitor<
       errorType: getConfigValue(rawConfig.errorType, 'unknown'),
       exposeDocument: getConfigValue(rawConfig.exposeDocument, false),
       exposeQueryKeys: getConfigValue(rawConfig.exposeQueryKeys, false),
+      exposeQueryOptions: getConfigValue(rawConfig.exposeQueryOptions, false),
       exposeQueryRootKeys: getConfigValue(rawConfig.exposeQueryRootKeys, false),
       exposeMutationKeys: getConfigValue(rawConfig.exposeMutationKeys, false),
       exposeFetcher: getConfigValue(rawConfig.exposeFetcher, false),
@@ -150,13 +151,14 @@ export class ReactQueryVisitor extends ClientSideBaseVisitor<
 
     if (operationType === 'Query') {
       const addQuery = (generateConfig: GenerateConfig, isSuspense = false) => {
-        const { hook, getKey, rootKey, document } = this.fetcher.generateQueryOutput(
+        const { hook, getKey, rootKey, document, queryOptions } = this.fetcher.generateQueryOutput(
           generateConfig,
           isSuspense,
         );
         queries.push(hook);
         if (this.config.exposeDocument) queries.push(document);
         if (this.config.exposeQueryKeys) queries.push(getKey);
+        if (this.config.exposeQueryOptions) queries.push(queryOptions);
         if (this.config.exposeQueryRootKeys) queries.push(rootKey);
       };
 

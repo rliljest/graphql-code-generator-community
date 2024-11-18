@@ -65,6 +65,12 @@ export const validate: PluginValidateFn<any> = async (
       `Suspense queries are only supported in react-query@5. Please upgrade your react-query version.`,
     );
   }
+  if (config.reactQueryVersion !== 5 && config.exposeQueryOptions) {
+    throw new Error(
+      `Query Options are only supported in react-query@5. Please upgrade your react-query version.`,
+    );
+  }
+
 };
 
 export { ReactQueryVisitor };

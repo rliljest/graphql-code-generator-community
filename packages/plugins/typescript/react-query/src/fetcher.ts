@@ -260,6 +260,10 @@ export abstract class FetcherRenderer {
         isSuspense,
       )};`,
       rootKey: `${query.getHook(operationName)}.rootKey = '${node.name.value}';`,
+      queryOptions: `${query.getHook(operationName)}.getOptions = (${signature}) => ({
+      queryKey: ${this.generateQueryKey(config, isSuspense)},
+      queryFn: ${(this.generateFetcherFetch(config).split(' = ')[1] ?? '').trim()},
+      })`
     };
   }
 
